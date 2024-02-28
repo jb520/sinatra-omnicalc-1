@@ -36,3 +36,20 @@ get("/square_root/results") do
 
   erb(:calc_square_root)
 end
+
+get("/payment/results") do
+  @apr = params.fetch("user_apr").to_f
+  @years = params.fetch("user_years").to_f
+  @pv = params.fetch("user_pv").to_f
+  
+  @result = @num ** 2
+
+  erb(:calc_square)
+end
+
+get("/random/results") do
+  @num = params.fetch("number").to_f
+  @result = @num ** 2
+
+  erb(:calc_square)
+end
