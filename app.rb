@@ -18,5 +18,5 @@ get("/payment/new") do
 end
 
 get("/random/new") do
-  erb(:square)
+  erb(:random)
 end
