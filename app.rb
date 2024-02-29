@@ -39,17 +39,28 @@ end
 
 get("/payment/results") do
   @apr = params.fetch("user_apr").to_f
-  @years = params.fetch("user_years").to_f
+  @years = params.fetch("user_years").to_i
   @pv = params.fetch("user_pv").to_f
-  
-  @result = @num ** 2
 
-  erb(:calc_square)
+  #apr to rate per month
+  @rate = @apr / 100
+  @r = @rate / 12 
+
+  #years to number of periods
+  @n = @years * 12
+
+  @numerator = @r * @pv
+  @denominator = 1 - ((1 + @r) ** (-@n))
+  
+  @result = @numerator / @denominator
+
+  erb(:calc_payment)
 end
 
 get("/random/results") do
-  @num = params.fetch("number").to_f
-  @result = @num ** 2
+  @min = params.fetch("user_min").to_f
+  @max = params.fetch("user_max").to_f
+  @result = rand(@min..@max)
 
-  erb(:calc_square)
+  erb(:calc_random)
 end
